@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boss Enaful - Reaction Bot Maker</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root {
+            --primary-color: #0088cc;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #ffffff;
+        }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: var(--bg-color); 
+            color: var(--text-color);
+            margin: 0; padding: 15px; text-align: center; 
+        }
+        .header { margin-bottom: 20px; }
+        .stats-container {
+            display: flex; justify-content: space-around;
+            background: var(--card-bg); padding: 15px;
+            border-radius: 12px; margin-bottom: 20px;
+            border: 1px solid #333;
+        }
+        .stat-box { font-size: 14px; }
+        .stat-box span { display: block; font-size: 20px; font-weight: bold; color: var(--primary-color); }
+        
+        .form-container {
+            background: var(--card-bg); padding: 20px;
+            border-radius: 15px; border: 1px solid #333;
+        }
+        input, select { 
+            width: 100%; padding: 12px; margin: 10px 0; 
+            border-radius: 8px; border: 1px solid #444; 
+            background: #252525; color: white; box-sizing: border-box;
+        }
+        .btn-create { 
+            background: var(--primary-color); color: white; 
+            border: none; padding: 15px; width: 100%; 
+            border-radius: 8px; font-size: 16px; font-weight: bold;
+            cursor: pointer; transition: 0.3s; margin-top: 10px;
+        }
+        .btn-create:active { transform: scale(0.98); }
+        .status-badge {
+            display: inline-block; padding: 5px 10px;
+            background: #2ecc71; border-radius: 20px;
+            font-size: 12px; margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>🚀 Reaction Bot Maker</h2>
+        <p style="color: #bbb; font-size: 14px;">বিনা কোডিংয়ে অটো-রিঅ্যাক্ট বট তৈরি করুন</p>
+    </div>
+
+    <div class="stats-container">
+        <div class="stat-box">
+            <span>2.5k+</span>
+            ইউজার
+        </div>
+        <div class="stat-box">
+            <span>99%</span>
+            আপটাইম
+        </div>
+        <div class="stat-box">
+            <span>🔥</span>
+            সুপার ফাস্ট
+        </div>
+    </div>
+
+    <div class="form-container">
+        <label style="text-align: left; display: block; font-size: 14px;">বট টোকেন দিন:</label>
+        <input type="text" id="botToken" placeholder="712345678:AAH-xxxx...">
+
+        <label style="text-align: left; display: block; font-size: 14px;">অ্যাডমিন আইডি দিন:</label>
+        <input type="number" id="adminId" placeholder="আপনার টেলিগ্রাম আইডি">
+
+        <label style="text-align: left; display: block; font-size: 14px;">রিঅ্যাকশন মোড:</label>
+        <select id="reactionMode">
+            <option value="auto_10">✨ অটো ১০টি ইমোজি (সেরা)</option>
+            <option value="👍">👍 শুধু লাইক</option>
+            <option value="❤️">❤️ শুধু লাভ</option>
+            <option value="🔥">🔥 শুধু আগুন</option>
+        </select>
+
+        <button class="btn-create" onclick="sendData()">বট তৈরি করুন</button>
+        <div class="status-badge">● সার্ভার অনলাইনে আছে</div>
+    </div>
+
+    <p style="font-size: 12px; color: #666; margin-top: 20px;">Powered by Boss Enaful - Cyber Attack 69 Zone</p>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+
+        function sendData() {
+            const token = document.getElementById('botToken').value;
+            const adminId = document.getElementById('adminId').value;
+            const mode = document.getElementById('reactionMode').value;
+
+            if(!token || !adminId) {
+                tg.showAlert("দয়া করে সব তথ্য পূরণ করুন!");
+                return;
+            }
+
+            const data = {
+                token: token,
+                admin: adminId,
+                emoji: mode
+            };
+
+            // টেলিগ্রাম বটের কাছে ডাটা পাঠানো
+            tg.sendData(JSON.stringify(data));
+            tg.close();
+        }
+    </script>
+</body>
+</html>
