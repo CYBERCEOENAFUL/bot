@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CYBER  ENAFUL - Bot Maker Engine</title>
+    <title>CYBER 71 ENAFUL - Bot Maker Engine</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
@@ -77,16 +77,18 @@
         .purple { background: linear-gradient(135deg, #8957e5, #6f42c1); }
         .green { background: linear-gradient(135deg, #238636, #2ea44f); }
         .red { background: linear-gradient(135deg, #da3633, #b62b28); }
-        .white-btn { background: #ffffff; color: #000000; }
+        .white-btn { background: #ffffff; color: #000000; margin-top: 5px; }
+        .cancel-btn { background: rgba(218, 54, 51, 0.2); border: 1px solid var(--btn-red); color: #ff6b6b; }
 
         .form-panel {
-            background: rgba(30, 30, 30, 0.85);
+            background: rgba(30, 30, 30, 0.9);
             border: 1px solid #30363d;
             border-radius: 12px;
             padding: 15px;
             margin-top: 15px;
-            display: none;
+            display: none; /* শুরুতে হাইড থাকবে */
             backdrop-filter: blur(5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
         }
 
         .form-panel label {
@@ -126,18 +128,20 @@
 
     <button class="btn purple" onclick="sendAction('owner_profile')">👑 OWNER ID: 6823368645</button>
 
-    <button class="btn green" onclick="toggleForm()">👤 SET CLONE BOT ADMIN</button>
+    <button class="btn green" onclick="openForm('admin')">👤 SET CLONE BOT ADMIN</button>
 
-    <button class="btn red" onclick="toggleForm()">🔑 ENTER BOT TOKEN</button>
+    <button class="btn red" onclick="openForm('token')">🔑 ENTER BOT TOKEN</button>
 
     <div class="form-panel" id="inputForm">
         <label>👤 Admin Telegram ID:</label>
-        <input type="number" id="adminIdInput" class="input-field" placeholder="Enter Bot Admin's Telegram ID...">
+        <input type="text" inputmode="numeric" id="adminIdInput" class="input-field" placeholder="Enter Bot Admin's Telegram ID...">
 
         <label>🔑 Bot Token:</label>
         <input type="text" id="tokenInput" class="input-field" placeholder="Enter Your HTTP Bot Token...">
         
         <button class="btn white-btn" onclick="deployBotToServer()">🚀 DEPLOY & TRANSMIT FEATURES</button>
+        
+        <button class="btn cancel-btn" onclick="closeForm()">❌ CANCEL</button>
     </div>
 
 </div>
@@ -152,22 +156,33 @@
         tg.close();
     }
 
-    function toggleForm() {
+    // স্মার্ট ফর্ম ওপেনিং সিস্টেম
+    function openForm(focusTarget) {
         var form = document.getElementById('inputForm');
         form.style.display = 'block';
-        document.getElementById('tokenInput').focus();
+        
+        if (focusTarget === 'admin') {
+            document.getElementById('adminIdInput').focus();
+        } else if (focusTarget === 'token') {
+            document.getElementById('tokenInput').focus();
+        }
+    }
+
+    function closeForm() {
+        document.getElementById('inputForm').style.display = 'none';
     }
 
     function deployBotToServer() {
         let adminId = document.getElementById('adminIdInput').value.trim();
         let token = document.getElementById('tokenInput').value.trim();
         
-        if(!adminId) {
-            alert("Please enter the Admin Telegram ID first!");
+        // আইডি শুধুমাত্র সংখ্যা কিনা তা যাচাই করা
+        if(!adminId || isNaN(adminId)) {
+            alert("Please enter a valid numeric Admin Telegram ID!");
             return;
         }
-        if(!token) {
-            alert("Please enter a valid Bot Token!");
+        if(!token || !token.includes(":")) {
+            alert("Please enter a valid Bot Token (e.g. 123456:ABC...)!");
             return;
         }
 
