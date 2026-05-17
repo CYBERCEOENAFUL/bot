@@ -1,123 +1,180 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boss Enaful - Reaction Bot Maker</title>
+    <title>CYBER  ENAFUL - Bot Maker Engine</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
-            --primary-color: #0088cc;
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --text-color: #ffffff;
+            --bg-dark: #121212;
+            --btn-purple: #8957e5;
+            --btn-green: #238636;
+            --btn-red: #da3633;
+            --text-main: #ffffff;
+            --text-sub: #f3c68f;
         }
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: var(--bg-color); 
-            color: var(--text-color);
-            margin: 0; padding: 15px; text-align: center; 
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-dark);
+            background-image: linear-gradient(rgba(18, 18, 18, 0.8), rgba(18, 18, 18, 0.8)), url('https://i.supaimg.com/d8919cc0-dc9c-41e0-9c14-2ff75835e603/dd8de9f6-0a00-4dac-8477-2d4f43119bc6.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-main);
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            justify-content: center;
         }
-        .header { margin-bottom: 20px; }
-        .stats-container {
-            display: flex; justify-content: space-around;
-            background: var(--card-bg); padding: 15px;
-            border-radius: 12px; margin-bottom: 20px;
-            border: 1px solid #333;
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            box-sizing: border-box;
         }
-        .stat-box { font-size: 14px; }
-        .stat-box span { display: block; font-size: 20px; font-weight: bold; color: var(--primary-color); }
-        
-        .form-container {
-            background: var(--card-bg); padding: 20px;
-            border-radius: 15px; border: 1px solid #333;
+
+        .header-box {
+            background: rgba(22, 27, 34, 0.8);
+            border-left: 4px solid #8957e5;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        input, select { 
-            width: 100%; padding: 12px; margin: 10px 0; 
-            border-radius: 8px; border: 1px solid #444; 
-            background: #252525; color: white; box-sizing: border-box;
+
+        .header-box h2 { margin: 0 0 5px 0; color: #4ea8de; font-size: 18px; }
+        .header-box p { margin: 0; color: var(--text-sub); font-weight: bold; font-size: 14px; }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #ffffff;
+            cursor: pointer;
+            text-align: center;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
         }
-        .btn-create { 
-            background: var(--primary-color); color: white; 
-            border: none; padding: 15px; width: 100%; 
-            border-radius: 8px; font-size: 16px; font-weight: bold;
-            cursor: pointer; transition: 0.3s; margin-top: 10px;
+
+        .btn:active { transform: scale(0.97); }
+
+        .purple { background: linear-gradient(135deg, #8957e5, #6f42c1); }
+        .green { background: linear-gradient(135deg, #238636, #2ea44f); }
+        .red { background: linear-gradient(135deg, #da3633, #b62b28); }
+        .white-btn { background: #ffffff; color: #000000; }
+
+        .form-panel {
+            background: rgba(30, 30, 30, 0.85);
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+            display: none;
+            backdrop-filter: blur(5px);
         }
-        .btn-create:active { transform: scale(0.98); }
-        .status-badge {
-            display: inline-block; padding: 5px 10px;
-            background: #2ecc71; border-radius: 20px;
-            font-size: 12px; margin-top: 10px;
+
+        .form-panel label {
+            display: block;
+            font-size: 13px;
+            color: #8b949e;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            background-color: #010409;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 14px;
+            box-sizing: border-box;
+            margin-bottom: 12px;
+        }
+
+        .input-field:focus {
+            border-color: #58a6ff;
+            outline: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h2>🚀 Reaction Bot Maker</h2>
-        <p style="color: #bbb; font-size: 14px;">বিনা কোডিংয়ে অটো-রিঅ্যাক্ট বট তৈরি করুন</p>
+<div class="container">
+
+    <div class="header-box">
+        <h2>🤖 AUTO REACTION BOT MAKER 3</h2>
+        <p>OWNER: ENAFUL 💛💛</p>
     </div>
 
-    <div class="stats-container">
-        <div class="stat-box">
-            <span>2.5k+</span>
-            ইউজার
-        </div>
-        <div class="stat-box">
-            <span>99%</span>
-            আপটাইম
-        </div>
-        <div class="stat-box">
-            <span>🔥</span>
-            সুপার ফাস্ট
-        </div>
+    <button class="btn purple" onclick="sendAction('owner_profile')">👑 OWNER ID: 6823368645</button>
+
+    <button class="btn green" onclick="toggleForm()">👤 SET CLONE BOT ADMIN</button>
+
+    <button class="btn red" onclick="toggleForm()">🔑 ENTER BOT TOKEN</button>
+
+    <div class="form-panel" id="inputForm">
+        <label>👤 Admin Telegram ID:</label>
+        <input type="number" id="adminIdInput" class="input-field" placeholder="Enter Bot Admin's Telegram ID...">
+
+        <label>🔑 Bot Token:</label>
+        <input type="text" id="tokenInput" class="input-field" placeholder="Enter Your HTTP Bot Token...">
+        
+        <button class="btn white-btn" onclick="deployBotToServer()">🚀 DEPLOY & TRANSMIT FEATURES</button>
     </div>
 
-    <div class="form-container">
-        <label style="text-align: left; display: block; font-size: 14px;">বট টোকেন দিন:</label>
-        <input type="text" id="botToken" placeholder="712345678:AAH-xxxx...">
+</div>
 
-        <label style="text-align: left; display: block; font-size: 14px;">অ্যাডমিন আইডি দিন:</label>
-        <input type="number" id="adminId" placeholder="আপনার টেলিগ্রাম আইডি">
+<script>
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.expand();
 
-        <label style="text-align: left; display: block; font-size: 14px;">রিঅ্যাকশন মোড:</label>
-        <select id="reactionMode">
-            <option value="auto_10">✨ অটো ১০টি ইমোজি (সেরা)</option>
-            <option value="👍">👍 শুধু লাইক</option>
-            <option value="❤️">❤️ শুধু লাভ</option>
-            <option value="🔥">🔥 শুধু আগুন</option>
-        </select>
+    function sendAction(action) {
+        tg.sendData(action);
+        tg.close();
+    }
 
-        <button class="btn-create" onclick="sendData()">বট তৈরি করুন</button>
-        <div class="status-badge">● সার্ভার অনলাইনে আছে</div>
-    </div>
+    function toggleForm() {
+        var form = document.getElementById('inputForm');
+        form.style.display = 'block';
+        document.getElementById('tokenInput').focus();
+    }
 
-    <p style="font-size: 12px; color: #666; margin-top: 20px;">Powered by Boss Enaful - Cyber Attack 69 Zone</p>
-
-    <script>
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-
-        function sendData() {
-            const token = document.getElementById('botToken').value;
-            const adminId = document.getElementById('adminId').value;
-            const mode = document.getElementById('reactionMode').value;
-
-            if(!token || !adminId) {
-                tg.showAlert("দয়া করে সব তথ্য পূরণ করুন!");
-                return;
-            }
-
-            const data = {
-                token: token,
-                admin: adminId,
-                emoji: mode
-            };
-
-            // টেলিগ্রাম বটের কাছে ডাটা পাঠানো
-            tg.sendData(JSON.stringify(data));
-            tg.close();
+    function deployBotToServer() {
+        let adminId = document.getElementById('adminIdInput').value.trim();
+        let token = document.getElementById('tokenInput').value.trim();
+        
+        if(!adminId) {
+            alert("Please enter the Admin Telegram ID first!");
+            return;
         }
-    </script>
+        if(!token) {
+            alert("Please enter a valid Bot Token!");
+            return;
+        }
+
+        tg.sendData("deploy_clone:" + token + "#" + adminId);
+        tg.close();
+    }
+</script>
+
 </body>
 </html>
